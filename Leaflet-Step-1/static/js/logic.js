@@ -35,9 +35,10 @@ function createMap(earthquakes) {
 function createMarkers(response) {
     
     // Get earthquakes from json
+    console.log(response)
     
 
 };
 
 // Get Earthquake information from usgs then pass it on to create Markers
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(console.log());
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(createMarkers);
