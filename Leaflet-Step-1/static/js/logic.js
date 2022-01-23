@@ -20,7 +20,7 @@ function createMap(earthquakes) {
   };
 
   // Map Object
-  let map = L.map("map-id", {
+  let map = L.map("map", {
     center: [40.73, -74.0059],
     zoom: 12,
     layers: [lightmap, earthquakes]
@@ -35,8 +35,23 @@ function createMap(earthquakes) {
 function createMarkers(response) {
     
     // Get earthquakes from json
-    console.log(response)
+    let features = response.features;
+
+    //console.log(features);
+
+    let epicenterMarkers = [];
+
+    for (let index = 0; index < features.length; index++) {
+
+        let epicenter = features[index].geometry.coordinates;
+        // console.log(epicenter);
+
+        let epicenterMarker = L.marker([epicenter[0], epicenter[1]]);
+        epicenterMarkers.push(epicenterMarker);
+        //console.log(epicenterMarkers);
+    }
     
+    createMap(L.layerGroup(epicenterMarkers));
 
 };
 
