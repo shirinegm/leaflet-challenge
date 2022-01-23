@@ -44,11 +44,12 @@ function createMarkers(response) {
     for (let index = 0; index < features.length; index++) {
 
         let epicenter = features[index].geometry.coordinates;
+        let epicenterInfo = features[index].properties;
         // console.log(epicenter);
 
-        let epicenterMarker = L.marker([epicenter[1], epicenter[0]]);
+        let epicenterMarker = L.marker([epicenter[1], epicenter[0]])
+            .bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6>");
         epicenterMarkers.push(epicenterMarker);
-        //console.log(epicenterMarkers);
     }
     
     createMap(L.layerGroup(epicenterMarkers));
