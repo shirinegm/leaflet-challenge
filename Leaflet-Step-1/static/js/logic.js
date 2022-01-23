@@ -56,7 +56,7 @@ function createMap(earthquakes) {
 function colorByDepth(depth) {
     let color = "";
     
-    if (depth <= 10) { color = "palegreen";}
+    if (depth <= 10) { color = "darkseagreen";}
     else if ((depth > 10) && (depth <= 30)) { color = "gold";}
     else if ((depth > 30) && (depth <= 50)) { color = "darkorange";}
     else if ((depth > 50) && (depth <= 70)) { color = "red";}
