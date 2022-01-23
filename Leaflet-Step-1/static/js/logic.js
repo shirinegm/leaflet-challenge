@@ -47,8 +47,13 @@ function createMarkers(response) {
         let epicenterInfo = features[index].properties;
         // console.log(epicenter);
 
-        let epicenterMarker = L.marker([epicenter[1], epicenter[0]])
-            .bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6>");
+        let epicenterMarker = L.circle([epicenter[1], epicenter[0]], {
+            color: 'black',
+            fillcolor: 'red',
+            fillOpacity: 0.6,
+            radius: epicenterInfo.mag * 30000,
+            weight: 1
+        }).bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6>");
         epicenterMarkers.push(epicenterMarker);
     }
     
