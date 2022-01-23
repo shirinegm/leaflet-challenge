@@ -21,8 +21,8 @@ function createMap(earthquakes) {
 
   // Map Object
   let map = L.map("map", {
-    center: [40.73, -74.0059],
-    zoom: 12,
+    center: [38.40, -108.30],
+    zoom: 4.4,
     layers: [lightmap, earthquakes]
   });
 
@@ -46,7 +46,7 @@ function createMarkers(response) {
         let epicenter = features[index].geometry.coordinates;
         // console.log(epicenter);
 
-        let epicenterMarker = L.marker([epicenter[0], epicenter[1]]);
+        let epicenterMarker = L.marker([epicenter[1], epicenter[0]]);
         epicenterMarkers.push(epicenterMarker);
         //console.log(epicenterMarkers);
     }
