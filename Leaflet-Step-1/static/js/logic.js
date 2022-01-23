@@ -21,7 +21,7 @@ function createMap(earthquakes) {
 
   // Map Object
   let map = L.map("map", {
-    center: [38.40, -108.30],
+    center: [45.50, -131.50],
     zoom: 4.4,
     layers: [lightmap, earthquakes]
   });
@@ -30,6 +30,20 @@ function createMap(earthquakes) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(map);
+};
+function colorByDepth(depth) {
+    let color = "";
+    
+    if (depth <= 10) { color = "green";}
+    else if ((depth > 10) && (depth <= 30)) { color = "yellow";}
+    else if ((depth > 30) && (depth <= 50)) { color = "orange";}
+    else if ((depth > 50) && (depth <= 70)) { color = "orange";}
+    else if ((depth > 70) && (depth <= 90)) { color = "red";}
+    else { color = "violet";}
+
+    console.log(color);
+    return color;
+
 };
 
 function createMarkers(response) {
@@ -45,15 +59,15 @@ function createMarkers(response) {
 
         let epicenter = features[index].geometry.coordinates;
         let epicenterInfo = features[index].properties;
-        // console.log(epicenter);
+        console.log(epicenter[2]);
 
         let epicenterMarker = L.circle([epicenter[1], epicenter[0]], {
-            color: 'black',
-            fillcolor: 'red',
+            color: colorByDepth(epicenter[2]),
+            fillcolor: colorByDepth(epicenter[2]),
             fillOpacity: 0.6,
             radius: epicenterInfo.mag * 30000,
             weight: 1
-        }).bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6>");
+        }).bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6><h6>Depth: " + epicenter[2] + "</h6>");
         epicenterMarkers.push(epicenterMarker);
     }
     
