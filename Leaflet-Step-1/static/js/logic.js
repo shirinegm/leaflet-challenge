@@ -36,15 +36,15 @@ function createMap(earthquakes) {
   legend.onAdd = function () {
     var div = L.DomUtil.create('div', 'info legend'),
     grades = [10, 30, 50, 70, 90, 100],
-    labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+    labels = ["-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+    let legendRows = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            labels.push("<li style=\"background-color: " + colorByDepth(grades[i]) + "\"></li>");
+        legendRows.push("<i style=\"background-color: " + colorByDepth(grades[i]) + "\">" + labels[i] + "</i>");
     };
 
-    div.innerHTML += "<ul>" + labels.join("<br>") + "</ul>";
+    div.innerHTML += legendRows.join("<br>");
 
     return div;
   };
@@ -56,12 +56,12 @@ function createMap(earthquakes) {
 function colorByDepth(depth) {
     let color = "";
     
-    if (depth <= 10) { color = "green";}
-    else if ((depth > 10) && (depth <= 30)) { color = "yellow";}
-    else if ((depth > 30) && (depth <= 50)) { color = "orange";}
-    else if ((depth > 50) && (depth <= 70)) { color = "orange";}
-    else if ((depth > 70) && (depth <= 90)) { color = "red";}
-    else { color = "violet";}
+    if (depth <= 10) { color = "palegreen";}
+    else if ((depth > 10) && (depth <= 30)) { color = "gold";}
+    else if ((depth > 30) && (depth <= 50)) { color = "darkorange";}
+    else if ((depth > 50) && (depth <= 70)) { color = "red";}
+    else if ((depth > 70) && (depth <= 90)) { color = "indianred";}
+    else { color = "darkred";}
 
     // console.log(color);
     return color;
