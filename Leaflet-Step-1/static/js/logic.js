@@ -21,8 +21,8 @@ function createMap(earthquakes) {
 
   // Map Object
   let map = L.map("map", {
-    center: [45.50, -131.50],
-    zoom: 4.4,
+    center: [40.169692, -121.228002],
+    zoom: 4,
     layers: [lightmap, earthquakes]
   });
 
@@ -30,7 +30,29 @@ function createMap(earthquakes) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(map);
+
+  // Add a legend
+  let legend = L.control({position: 'bottomright'});
+  legend.onAdd = function () {
+    var div = L.DomUtil.create('div', 'info legend'),
+    grades = [10, 30, 50, 70, 90, 100],
+    labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            labels.push("<li style=\"background-color: " + colorByDepth(grades[i]) + "\"></li>");
+    };
+
+    div.innerHTML += "<ul>" + labels.join("<br>") + "</ul>";
+
+    return div;
+  };
+  legend.addTo(map);
+
 };
+
+// Function to set the color depending on the depth of the earthquake
 function colorByDepth(depth) {
     let color = "";
     
@@ -41,7 +63,7 @@ function colorByDepth(depth) {
     else if ((depth > 70) && (depth <= 90)) { color = "red";}
     else { color = "violet";}
 
-    console.log(color);
+    // console.log(color);
     return color;
 
 };
@@ -59,13 +81,13 @@ function createMarkers(response) {
 
         let epicenter = features[index].geometry.coordinates;
         let epicenterInfo = features[index].properties;
-        console.log(epicenter[2]);
+        // console.log(epicenter[2]);
 
         let epicenterMarker = L.circle([epicenter[1], epicenter[0]], {
             color: colorByDepth(epicenter[2]),
             fillcolor: colorByDepth(epicenter[2]),
             fillOpacity: 0.6,
-            radius: epicenterInfo.mag * 30000,
+            radius: epicenterInfo.mag * 20000,
             weight: 1
         }).bindPopup("<h6>Magnitude: " + epicenterInfo.mag + "</h6><h6>Place: " + epicenterInfo.place + "</h6><h6>Depth: " + epicenter[2] + "</h6>");
         epicenterMarkers.push(epicenterMarker);
